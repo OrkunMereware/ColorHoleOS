@@ -14,7 +14,7 @@ public class ObjectPool : MonoBehaviour
     void Awake()
     {
         // Set the name based on the cloned object for convenience.
-        transform.name = objectPrefab == null ? "Object Pool [none]" : "Object Pool [" + objectPrefab.name + "]";
+        transform.name = objectPrefab == null ? transform.name + " [none]" : transform.name + " [" + objectPrefab.name + "]";
 
         Init();
     }
@@ -29,6 +29,7 @@ public class ObjectPool : MonoBehaviour
                 GameObject prefabClone = MonoBehaviour.Instantiate(objectPrefab); // Instantiate the game object.
                 prefabClone.transform.parent = transform; // Set parent to this object pool.
                 prefabClone.transform.position = Vector3.zero; // Center object to worldspace.
+                prefabClone.transform.name = objectPrefab.name + " @" + (i + 1);
                 prefabClone.SetActive(false); // Deactivate the game object for not calling belonging scripts when unused.
             }
             transform.name = transform.name + " x" + transform.childCount; // Update the name with the clone count for convenience.

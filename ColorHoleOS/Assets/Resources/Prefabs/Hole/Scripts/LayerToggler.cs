@@ -7,6 +7,8 @@ public class LayerToggler : MonoBehaviour
 {
     [Tooltip("Layer ID to switch.")] [SerializeField]
     private int targetLayer = 0;
+    //[Tooltip("Default layer ID to switch back.")] [SerializeField]
+    //private int defaultLayer = 0;
 
     /// <summary>
     /// 
@@ -16,4 +18,10 @@ public class LayerToggler : MonoBehaviour
     {
         other.gameObject.layer = targetLayer;
     }
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    Debug.Log("exit");
+    //    other.gameObject.layer = defaultLayer;
+    //}
 }
