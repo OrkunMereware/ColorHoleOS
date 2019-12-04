@@ -15,9 +15,11 @@ public class ObjectPool : MonoBehaviour
     {
         // Set the name based on the cloned object for convenience.
         transform.name = objectPrefab == null ? "Object Pool [none]" : "Object Pool [" + objectPrefab.name + "]";
+
+        Init();
     }
 
-    void Start()
+    private void Init()
     {
         // Instantiate the prefab if it is set from inspector.
         if (objectPrefab != null)
@@ -48,12 +50,14 @@ public class ObjectPool : MonoBehaviour
     }
 
     /// <summary>
-    /// Finds the appropriate game object clone and sets it active.
+    /// Finds the appropriate game object clone and sets it active then transforms it to the given position.
     /// </summary>
-    /// <returns>Returns the next deactivated game object in an activated state.</returns>
-    public GameObject GetActive()
+    /// <param name="position">Returns the next deactivated game object in an activated state and sets the world position according to the Vector3 value.</param>
+    /// <returns></returns>
+    public GameObject SetActiveAtPosition(Vector3 position)
     {
         GameObject clone = Get();
+        clone.transform.position = position;
         clone.SetActive(true);
         return clone;
     }
@@ -61,7 +65,7 @@ public class ObjectPool : MonoBehaviour
     /// <summary>
     /// Returns the object to the pool by deactivating it.
     /// </summary>
-    public void Return(GameObject clone)
+    public static void Return(GameObject clone)
     {
         clone.SetActive(false);
     }
@@ -69,7 +73,7 @@ public class ObjectPool : MonoBehaviour
     /// <summary>
     /// Returns the object to the pool by deactivating it and set the world position and rotation to zero.
     /// </summary>
-    public void Reset(GameObject clone)
+    public static void Reset(GameObject clone)
     {
         Return(clone);
         clone.transform.position = Vector3.zero;
