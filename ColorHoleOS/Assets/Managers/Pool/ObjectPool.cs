@@ -66,4 +66,14 @@ public class ObjectPool : MonoBehaviour
         clone.SetActive(false);
     }
 
+    /// <summary>
+    /// Returns the object to the pool by deactivating it and set the world position and rotation to zero.
+    /// </summary>
+    public void Reset(GameObject clone)
+    {
+        Return(clone);
+        clone.transform.position = Vector3.zero;
+        clone.transform.eulerAngles = Vector3.zero;
+    }
+
 }
