@@ -1,4 +1,4 @@
-﻿Shader "Custom/HoleMask" {
+﻿Shader "Custom/Depth Mask" {
 	SubShader{
 		Tags { "RenderType" = "Opaque" "Queue" = "Geometry+1"}
 		ColorMask 0

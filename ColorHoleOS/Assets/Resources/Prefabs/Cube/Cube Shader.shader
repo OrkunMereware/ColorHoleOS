@@ -1,4 +1,4 @@
-﻿Shader "Custom/Hole Textured"
+﻿Shader "Custom/Cube"
 {
     Properties
     {
@@ -7,17 +7,20 @@
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
     }
+
     SubShader
     {
-		Tags { "RenderType" = "Opaque" "Queue" = "Geometry+2"}
+		Tags { "RenderType" = "Opaque" "Queue" = "Geometry+4"}
 		
 		ColorMask RGB
-		Cull Front
-		ZTest Always
-		Stencil {
+		//Cull Front
+		//ZTest Always
+		/*Stencil {
 			Ref 1
-			Comp notequal
-		}
+			Comp greater
+		}*/
+			//Blend[_SrcBlend][_DstBlend]
+			//ZWrite[_ZWrite]
 
         LOD 200
 
