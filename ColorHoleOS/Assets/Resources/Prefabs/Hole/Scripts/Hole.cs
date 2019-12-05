@@ -5,6 +5,29 @@ public class Hole : MonoBehaviour
 {
     [Tooltip("Manual translation speed in stage after level completion.")] [SerializeField]
     private float speed = 1.0f;
+    [Tooltip("Swipe multiplier for translation magnitude.")]
+    [SerializeField]
+    private float swipeMultiplier = 1.0f;
+    [System.NonSerialized]
+    public bool canMove = false;
+    //[System.NonSerialized]
+    //private Vector3 startPosition;
+
+    void Update()
+    {
+        //if (canMove)
+        //{
+        //    if (SwipeController.instance.offset.magnitude == 0.0f)
+        //    {
+        //        startPosition = transform.position;
+        //    }
+        //    else
+        //    {
+        //        Vector2 swipeOffset = SwipeController.instance.offset * swipeMultiplier;
+        //        transform.position = startPosition + new Vector3(swipeOffset.x, 0.0f, swipeOffset.y);
+        //    }
+        //}
+    }
 
     public void Center()
     {

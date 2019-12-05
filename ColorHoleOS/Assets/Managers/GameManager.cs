@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int targetFrameRate = 30; // For mobile, make the default value 30 fps.
     [Header("Game Settings")]
     [SerializeField] private int currentLevel; // Current level number.
+    [SerializeField] public bool PLAYING = false; // Playing state of the game to mask user touch.
     [Header("Object References")]
     [Tooltip("Hole object reference.")] [SerializeField] public Hole hole;
     [Tooltip("Friendly object pool to retrive items from.")] [SerializeField] public ObjectPool friendlyPool; // Frindly pool reference.
@@ -25,7 +26,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        levelLoader.Load(currentLevel);    
+        levelLoader.Load(currentLevel);  
+        PLAYING = true;
+        hole.canMove = true;
     }
 
 }
