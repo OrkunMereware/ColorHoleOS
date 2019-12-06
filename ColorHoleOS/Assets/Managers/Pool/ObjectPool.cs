@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour
     [Tooltip("Total instances to create.")] [SerializeField]
     private int instanceCount = 0;
     [System.NonSerialized]
-    private int currentIndex = -1; // Index counter to return elements to requester class.
+    private int currentIndex = 0; // Index counter to return elements to requester class.
 
     void Awake()
     {
@@ -42,12 +42,13 @@ public class ObjectPool : MonoBehaviour
     /// <returns>Returns the next deactivated game object to requested class.</returns>
     public GameObject Get()
     {
-        if (currentIndex++ >= transform.childCount)
+        if (currentIndex >= transform.childCount)
         {
             currentIndex = 0;
         }
+        GameObject child = transform.GetChild(currentIndex++).gameObject;
         // TODO : pass to the next deactivated game object if this one is active.
-        return transform.GetChild(currentIndex).gameObject;
+        return child;
     }
 
     /// <summary>
@@ -68,6 +69,8 @@ public class ObjectPool : MonoBehaviour
     /// </summary>
     public static void Return(GameObject clone)
     {
+        clone.GetComponent<Rigidbody>().isKinematic = true;
+        clone.layer = 8;
         clone.SetActive(false);
     }
 

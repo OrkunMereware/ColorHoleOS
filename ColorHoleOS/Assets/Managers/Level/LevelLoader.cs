@@ -27,6 +27,25 @@ public class LevelLoader : MonoBehaviour
     /// <param name="currentLevel">Parse json file according to current level argument.</param>
     public void Load(int currentLevel)
     {
+        if (currentLevel % 2 == 0)
+        {
+            PlaceFriendlySpheres();
+        }
         Load(Resources.Load<TextAsset>("Levels/level_" + currentLevel).text, currentLevel % 2 == 0 ? 0.0f : 140.0f);
+    }
+
+    /// <summary>
+    /// Place friendly sphere game objects.
+    /// </summary>
+    private void PlaceFriendlySpheres()
+    {
+        Vector3 offset = new Vector3(-2.1f, 1.25f, 37.0f); // shift friendly sphere game objects to the middle position.
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 55; j++)
+            {
+                GameManager.instance.friendlySpherePool.SetActiveAtPosition(new Vector3(1.1f * i, 0.0f, 1.1f * j) + offset); // set the pool clone game object transform and activate it.
+            }
+        }
     }
 }

@@ -2,43 +2,53 @@
 
 public class SwipeController : MonoBehaviour
 {
-    public static SwipeController instance;
-    [SerializeField] private LayerMask layerMask;
-    [System.NonSerialized] public bool PRESSING = false;
-    [System.NonSerialized] private Vector2 pressStart = Vector3.zero;
-    [System.NonSerialized] private Vector2 pressCurrent = Vector3.zero;
-    [System.NonSerialized] public Vector2 offset = Vector3.zero;
+    public static SwipeController instance; // Class instance to attain statically.
+    [SerializeField] private LayerMask layerMask; // Later mask to control which surface ray will collide with.
+    [System.NonSerialized] public bool PRESSING = false; // Press state of the touch for later use.
+    [System.NonSerialized] private Vector3 pressStart = Vector3.zero; // Starting position of the touch.
+    [System.NonSerialized] private Vector3 pressCurrent = Vector3.zero; // Current position of the touch.
+    [System.NonSerialized] public Vector3 offset = Vector3.zero; // How much the touch traveled from the starting position.
+    [System.NonSerialized] public RaycastHit hit; // Ray hit information to store.
 
     void Awake()
     {
-        instance = this;
+        instance = this; // Set the class instance;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Touch received.
         {
             SwipeController.instance.PRESSING = true;
-            pressStart = Input.mousePosition;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, layerMask))
+            {
+                pressStart = hit.point; // Set the touch position.
+            }
+            
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0)) // Touch lost
         {
             SwipeController.instance.PRESSING = false;
         }
 
         if (SwipeController.instance.PRESSING && GameManager.instance.PLAYING && Input.GetMouseButton(0))
         {
-            RaycastHit hit;
+            // Get the hit position in world space and update the current press.
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, layerMask))
             {
-                GameManager.instance.hole.transform.position = hit.point;
-                Debug.DrawLine(hit.point, transform.position);
+                pressCurrent = hit.point;
+                offset = pressCurrent - pressStart; // Calculate the total travel.
             }
-            //pressCurrent = Input.mousePosition;
-
-            //offset = pressCurrent - pressStart;
-            //offset = new Vector2(offset.x / Screen.width, offset.y / Screen.height);
         }
+    }
+    /// <summary>
+    /// Reset all of the variables.
+    /// </summary>
+    public void Reset()
+    {
+        pressStart = Vector3.zero;
+        pressCurrent = Vector3.zero;
+        offset = pressCurrent - pressStart;
     }
 
 }
