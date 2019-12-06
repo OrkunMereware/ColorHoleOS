@@ -10,12 +10,19 @@ public class PoolCollector : MonoBehaviour
     /// <param name="other">Generally other component is friendly or obstacle cube.</param>
     private void OnTriggerEnter(Collider other)
     {
-        ObjectPool.Reset(other.gameObject); // Return the object clone to its pool and reset transform attributes.
-        GameManager.instance.currentCollection++; // Increment current collection count.
-
-        if (GameManager.instance.currentCollection == GameManager.instance.targetCollection)
+        CollectableType.TYPE type = other.GetComponent<CollectableType>().type;
+        if (GameManager.instance.hole.canMove || type.Equals(CollectableType.TYPE.FRIENDLY_FREE))
         {
-            GameManager.instance.hole.Center();
+            ObjectPool.Reset(other.gameObject); // Return the object clone to its pool and reset transform attributes.
+            if (!type.Equals(CollectableType.TYPE.FRIENDLY_FREE))
+            {
+                GameManager.instance.currentCollection++; // Increment current collection count.
+                GameManager.instance.SetLevelIndicatorText((int)Calc.map(GameManager.instance.currentCollection, 0.0f, GameManager.instance.targetCollection, 0.0f, 100.0f));
+                if (GameManager.instance.currentCollection == GameManager.instance.targetCollection)
+                {
+                    GameManager.instance.hole.Center();
+                }
+            }
         }
 
     }

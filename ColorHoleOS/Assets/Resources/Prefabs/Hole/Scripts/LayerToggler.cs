@@ -16,7 +16,11 @@ public class LayerToggler : MonoBehaviour
     /// <param name="other">Other game object is generally the Cube object with a collider</param>
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.layer = targetLayer;
+        CollectableType.TYPE type = other.GetComponent<CollectableType>().type;
+        if (GameManager.instance.hole.canMove || type.Equals(CollectableType.TYPE.FRIENDLY_FREE))
+        {
+            other.gameObject.layer = targetLayer;
+        }
     }
 
     //private void OnTriggerExit(Collider other)

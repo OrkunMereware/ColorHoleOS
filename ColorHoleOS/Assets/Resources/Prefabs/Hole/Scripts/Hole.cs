@@ -47,6 +47,7 @@ public class Hole : MonoBehaviour
         float timeStep = 0.0f;
         while (timeStep < 1.0f)
         {
+            GameManager.instance.gate.OpenStep(timeStep);
             transform.position = Vector3.Lerp(startPosition, targetPosition, timeStep);
             timeStep += Time.deltaTime * speed;
             yield return new WaitForEndOfFrame();

@@ -19,20 +19,25 @@ public class RigidTrigger : MonoBehaviour
     /// <param name="other">Other game object is generally the Cube object which has a kinematic rigidbody</param>
     private void OnTriggerEnter(Collider other)
     {
-        Rigidbody rigidBody = other.GetComponent<Rigidbody>(); // Get the rigidbody component.
+        CollectableType.TYPE type = other.GetComponent<CollectableType>().type;
 
-        // If the game object does not have any rigidbody attached return directly.
-        if (rigidBody == null)
+        if (GameManager.instance.hole.canMove || type.Equals(CollectableType.TYPE.FRIENDLY_FREE))
         {
-            // If it is null, print an error message
-            Debug.LogError("RigidTrigger : " + " 'other' game object has no rigidbody. < probably you should check collision layers >");
-            return;
-        }
+            Rigidbody rigidBody = other.GetComponent<Rigidbody>(); // Get the rigidbody component.
 
-        rigidBody.isKinematic = false; // Set the body to dynamic, so it can fall.
-        float altitudeForce = transform.position.y * altitudeMagnitude; // Force is applied greater with altitude so it can fall to the hole better.
-        Vector3 fallDirection = (transform.position - rigidBody.transform.position).normalized; // This is the normalized direction vector from the Cube to the Hole.
-        rigidBody.AddForce(fallDirection * magnitude * altitudeForce);
+            // If the game object does not have any rigidbody attached return directly.
+            if (rigidBody == null)
+            {
+                // If it is null, print an error message
+                Debug.LogError("RigidTrigger : " + " 'other' game object has no rigidbody. < probably you should check collision layers >");
+                return;
+            }
+
+            rigidBody.isKinematic = false; // Set the body to dynamic, so it can fall.
+            float altitudeForce = transform.position.y * altitudeMagnitude; // Force is applied greater with altitude so it can fall to the hole better.
+            Vector3 fallDirection = (transform.position - rigidBody.transform.position).normalized; // This is the normalized direction vector from the Cube to the Hole.
+            rigidBody.AddForce(fallDirection * magnitude * altitudeForce);
+        }
     }
 
 }
