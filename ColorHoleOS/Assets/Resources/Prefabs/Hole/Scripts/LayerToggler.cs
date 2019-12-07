@@ -7,8 +7,8 @@ public class LayerToggler : MonoBehaviour
 {
     [Tooltip("Layer ID to switch.")] [SerializeField]
     private int targetLayer = 0;
-    //[Tooltip("Default layer ID to switch back.")] [SerializeField]
-    //private int defaultLayer = 0;
+    [Tooltip("Default layer ID to switch back.")][SerializeField]
+    private int defaultLayer = 8;
 
     /// <summary>
     /// 
@@ -16,16 +16,21 @@ public class LayerToggler : MonoBehaviour
     /// <param name="other">Other game object is generally the Cube object with a collider</param>
     private void OnTriggerEnter(Collider other)
     {
-        CollectableType.TYPE type = other.GetComponent<CollectableType>().type;
-        if (GameManager.instance.hole.canMove || type.Equals(CollectableType.TYPE.FRIENDLY_FREE))
+        // Change layer to collect the game object.
+        if (!(other.gameObject.layer == 11 && (GameManager.instance.hole.transform.position - other.transform.position).magnitude > 3.0f))
         {
-            other.gameObject.layer = targetLayer;
+            //Debug.Log("collect " + 8);
+            other.gameObject.layer = 11;
         }
     }
 
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    Debug.Log("exit");
-    //    other.gameObject.layer = defaultLayer;
-    //}
+    private void OnTriggerExit(Collider other)
+    {
+        // Change layer to collide when hole is further away.
+        if (other.gameObject.layer == 11 && (GameManager.instance.hole.transform.position - other.transform.position).magnitude > 3.0f)
+        {
+            other.gameObject.layer = 8;
+        }
+    }
+
 }

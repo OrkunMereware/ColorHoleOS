@@ -28,12 +28,19 @@ public class LevelLoader : MonoBehaviour
     /// <param name="currentLevel">Parse json file according to current level argument.</param>
     public void Load(int currentLevel)
     {
+        TextAsset jsonInfo = Resources.Load<TextAsset>("Levels/level_" + currentLevel);
+        if (jsonInfo == null)
+        {
+            Debug.Log("level_" + currentLevel + ".json" + " does not exits.");
+            return;
+        }
+
         if (currentLevel % 2 == 0)
         {
             PlaceFriendlySpheres();
         }
         GameManager.instance.currentCollection = 0;
-        GameManager.instance.targetCollection = Load(Resources.Load<TextAsset>("Levels/level_" + currentLevel).text, currentLevel % 2 == 0 ? 0.0f : 140.0f);
+        GameManager.instance.targetCollection = Load(jsonInfo.text, currentLevel % 2 == 0 ? 0.0f : 140.0f);
         GameManager.instance.SetLevelIndicatorText(0);
     }
 

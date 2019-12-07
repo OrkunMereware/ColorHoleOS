@@ -1120,15 +1120,30 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3824489376986867796, guid: 8102a3dc313f3564cb191efd39c86720,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10.4706
+      objectReference: {fileID: 0}
     - target: {fileID: -760707756927311111, guid: 8102a3dc313f3564cb191efd39c86720,
         type: 3}
       propertyPath: swipeMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3173908715603046977, guid: 8102a3dc313f3564cb191efd39c86720,
+        type: 3}
+      propertyPath: defaultLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2016372627751796785, guid: 8102a3dc313f3564cb191efd39c86720,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 4806451496677510879, guid: 8102a3dc313f3564cb191efd39c86720,
         type: 3}
       propertyPath: altitudeMagnitude
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8102a3dc313f3564cb191efd39c86720, type: 3}
@@ -1189,15 +1204,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Level x [0%] - [0%] Level x
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287269631
+  m_fontColor: {r: 1, g: 0.5424528, b: 0.5424528, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1215,8 +1230,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 47.5
+  m_fontSizeBase: 47.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

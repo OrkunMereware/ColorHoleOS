@@ -14,15 +14,27 @@ public class PoolCollector : MonoBehaviour
         if (GameManager.instance.hole.canMove || type.Equals(CollectableType.TYPE.FRIENDLY_FREE))
         {
             ObjectPool.Reset(other.gameObject); // Return the object clone to its pool and reset transform attributes.
-            if (!type.Equals(CollectableType.TYPE.FRIENDLY_FREE))
+            if (type.Equals(CollectableType.TYPE.FRIENDLY))
             {
                 GameManager.instance.currentCollection++; // Increment current collection count.
                 GameManager.instance.SetLevelIndicatorText((int)Calc.map(GameManager.instance.currentCollection, 0.0f, GameManager.instance.targetCollection, 0.0f, 100.0f));
                 if (GameManager.instance.currentCollection == GameManager.instance.targetCollection)
                 {
-                    GameManager.instance.hole.Center();
+                    if (GameManager.instance.currentLevel % 2 == 0)
+                    {
+                        GameManager.instance.hole.Center();
+                    }
+                    else
+                    {
+                        GameManager.instance.levelIndicatorText.SetText("You Win!");
+                        GameManager.instance.levelLoader.Load(++GameManager.instance.currentLevel);
+                    }
                 }
+            } else if (type.Equals(CollectableType.TYPE.OBSTACLE))
+            {
+                GameManager.instance.GameOver();
             }
+
         }
 
     }

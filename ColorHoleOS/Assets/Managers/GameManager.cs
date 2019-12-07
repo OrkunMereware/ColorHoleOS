@@ -37,6 +37,12 @@ public class GameManager : MonoBehaviour
         hole.canMove = true; // Let hole move with user input.
     }
 
+    public void GameOver()
+    {
+        GameManager.instance.PLAYING = false;
+        levelIndicatorText.SetText("Game Over");
+    }
+
     // This can be optimized by setting the levels as two stages.
     public void SetLevelIndicatorText(int currentLevelPercentage)
     {

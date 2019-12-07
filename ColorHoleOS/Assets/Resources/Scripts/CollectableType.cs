@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollectableType : MonoBehaviour
 {
-    [SerializeField] public TYPE type; 
+    [SerializeField] public TYPE type; // Type of the object to check end game and win game states.
 
     public enum TYPE
     {

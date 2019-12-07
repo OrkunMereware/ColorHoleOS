@@ -13,7 +13,7 @@ public class Hole : MonoBehaviour
 
     void Update()
     {
-        if (canMove) // If can move shift the hole by the amount of the swipe
+        if (canMove && GameManager.instance.PLAYING) // If can move shift the hole by the amount of the swipe
         {
             if (SwipeController.instance.offset.magnitude == 0.0f)
             {
@@ -25,7 +25,7 @@ public class Hole : MonoBehaviour
                 transform.position = startPosition + swipeOffset; // Add the current offset to the current world position to shift the hole the amount of the offset.
                 float local_x = Mathf.Clamp(transform.position.x, -14.0f, 14.0f); // Clamp the value so that the hole cannot exceed the stage space horizontally.
                 float offset_z = GameManager.instance.currentLevel % 2 == 0 ? 0.0f : 140.0f; // Offset is added bacause stage is shifted if the level number is odd.
-                float local_z = Mathf.Clamp(transform.position.z, -31.5f - offset_z, 31.5f + offset_z); // Clamp the value so that the hole cannot exceed the stage space vertically.
+                float local_z = Mathf.Clamp(transform.position.z, -31.5f + offset_z, 31.5f + offset_z); // Clamp the value so that the hole cannot exceed the stage space vertically.
                 transform.position = new Vector3(local_x, transform.position.y, local_z); // Add the values.
             }
         }
