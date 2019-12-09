@@ -13,35 +13,34 @@ public class CameraManager : MonoBehaviour
     public Vector2 targetRes;
     public float distance = 0.0f;
 
-    [HideInInspector] public Vector3 startPos;
+    private float startShift = 0.0f;
+    private float endShift = 0.0f;
+    private float forwardShift = 0.0f;
 
 
     void Awake()
     {
         instance = this; // Get the instance of class.
-        startPos = transform.position;
         startPosition = transform.position; // Set the starting position.
     }
 
     void Update()
     {
-        // Shift the camera by the frustrum
-        transform.position = startPos + transform.forward * (1f - (targetRes.x / targetRes.y) / ((float)Screen.width / (float)Screen.height)) * distance;
-    }
-
-    public void Reset()
-    {
-        transform.position = startPosition; // Reset the transform.
+        // Shift the camera by the frustruma
+        transform.position = startPosition + new Vector3(0.0f, 0.0f, forwardShift) + transform.forward * (1f - (targetRes.x / targetRes.y) / ((float)Screen.width / (float)Screen.height)) * distance;
     }
 
     public void UpdateStartPosition()
     {
-        startPosition = transform.position; // Update the starting position which means reset to the world and move based on that.
+        startShift = 0.0f; // Update the starting position which means reset to the world and move based on that.
+        endShift = startShift + 140.0f;
+
     }
 
     public void LerpPosition(float step)
     {
-        transform.position = Vector3.Lerp(startPosition, startPosition + forwardDistance, step); // Lerp to the forward distance manually according to step size passed to the function.
+        //transform.position = Vector3.Lerp(startPosition, startPosition + forwardDistance, step); // Lerp to the forward distance manually according to step size passed to the function.
+        forwardShift = Mathf.Lerp(startShift, endShift, step);
     }
 
 }
